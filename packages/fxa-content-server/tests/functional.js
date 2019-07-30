@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 module.exports = [
+  'tests/functional/oauth_webchannel.js',
   // new and flaky tests above here',
   'tests/functional/404.js',
   'tests/functional/500.js',
@@ -67,7 +68,7 @@ module.exports = [
   'tests/functional/sign_in_token_code.js',
   'tests/functional/sign_in_totp.js',
   'tests/functional/sign_up.js',
-  'tests/functional/support.js',
+  //'tests/functional/support.js',
   'tests/functional/sync_v1.js',
   'tests/functional/sync_v2.js',
   'tests/functional/sync_v3_email_first.js',
