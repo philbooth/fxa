@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const config = require('./server/lib/configuration').getProperties();
+const merge = require('webpack-merge');
 
 const ENV = config.env;
 const webpackConfig = {
@@ -46,7 +47,7 @@ const webpackConfig = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js','.jsx'],
+    extensions: ['.ts', '.js', '.jsx'],
     modules: [
       path.resolve(__dirname, 'app/scripts'),
       path.resolve(__dirname, 'app/scripts/templates'),
@@ -175,17 +176,17 @@ const webpackConfig = {
             options: {
               cacheDirectory: true,
               presets: [
-                [
-                  '@babel/preset-react', {
-                  }
-                ],
-                '@babel/preset-env', 
-                '@babel/preset-typescript'
+                ['@babel/preset-react', {}],
+                '@babel/preset-env',
+                '@babel/preset-typescript',
               ],
-              plugins: ['@babel/syntax-dynamic-import', '@babel/plugin-proposal-class-properties']
-            }
-          }
-        ]
+              plugins: [
+                '@babel/syntax-dynamic-import',
+                '@babel/plugin-proposal-class-properties',
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,
@@ -281,4 +282,51 @@ if (ENV === 'development') {
   });
 }
 
-module.exports = webpackConfig;
+const webpackConfigModern = merge(webpackConfig, {
+  output: {
+    crossOriginLoading: 'anonymous',
+    filename: '[name].modern.bundle.js',
+    chunkFilename: '[name].modern.bundle.js',
+    path: path.resolve(__dirname, 'dist', config.jsResourcePath),
+    publicPath: `/${config.jsResourcePath}/`,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: [
+          path.resolve(__dirname, 'app', 'scripts'),
+          path.resolve(__dirname, 'app', 'tests'),
+        ],
+        exclude: [
+          path.resolve(__dirname, 'app', 'scripts', 'vendor'),
+          path.resolve(__dirname, 'app', 'scripts', 'templates'),
+          'node_modules',
+        ],
+        use: [
+          {
+            loader: 'source-map-loader',
+          },
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: 4,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              plugins: [
+                '@babel/syntax-dynamic-import',
+                '@babel/plugin-proposal-class-properties',
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+});
+
+module.exports = [webpackConfig, webpackConfigModern];
