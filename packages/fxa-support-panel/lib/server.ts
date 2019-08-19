@@ -30,14 +30,6 @@ export async function init(
     port: serverConfig.listen.port,
   });
 
-  await server.register([
-    Scooter,
-    {
-      options: Config.get('security.csp'),
-      plugin: Blankie,
-    },
-  ]);
-
   api.init(logger, serverConfig, server);
 
   return server;
