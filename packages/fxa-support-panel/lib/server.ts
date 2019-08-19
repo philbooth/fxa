@@ -28,16 +28,6 @@ export async function init(
     debug: serverConfig.env === 'production' ? false : { request: ['error'] },
     host: serverConfig.listen.host,
     port: serverConfig.listen.port,
-    routes: {
-      security: {
-        hsts: {
-          includeSubDomains: true,
-          maxAge: 31536000,
-          preload: false,
-        },
-        xss: true,
-      },
-    },
   });
 
   await server.register([
