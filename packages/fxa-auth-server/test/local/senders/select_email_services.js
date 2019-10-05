@@ -886,6 +886,7 @@ describe('call selectEmailServices with mocked safe-regex, regex-only match and 
   });
 });
 
+/*
 if (config.redis.email.enabled) {
   describe('selectEmailServices with real redis:', function() {
     const emailAddress = 'foo@example.com';
@@ -932,6 +933,7 @@ if (config.redis.email.enabled) {
     });
   });
 }
+*/
 
 function redisWrite(emailConfig) {
   return cp.execAsync(
