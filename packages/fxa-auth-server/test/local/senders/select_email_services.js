@@ -886,8 +886,7 @@ describe('call selectEmailServices with mocked safe-regex, regex-only match and 
   });
 });
 
-/*
-if (config.redis.email.enabled) {
+if (false) {
   describe('selectEmailServices with real redis:', function() {
     const emailAddress = 'foo@example.com';
 
@@ -948,4 +947,3 @@ function redisRevert() {
     cwd: path.resolve(__dirname, '../../..'),
   });
 }
-*/
