@@ -933,7 +933,6 @@ if (config.redis.email.enabled) {
     });
   });
 }
-*/
 
 function redisWrite(emailConfig) {
   return cp.execAsync(
@@ -949,3 +948,4 @@ function redisRevert() {
     cwd: path.resolve(__dirname, '../../..'),
   });
 }
+*/
