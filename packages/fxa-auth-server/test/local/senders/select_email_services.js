@@ -10,7 +10,7 @@ const { assert } = require('chai');
 const config = require(`${ROOT_DIR}/config`).getProperties();
 const cp = require('child_process');
 const mocks = require('../../mocks');
-const path = require('path');
+// const path = require('path');
 const Promise = require(`${ROOT_DIR}/lib/promise`);
 const proxyquire = require('proxyquire').noPreserveCache();
 const sinon = require('sinon');
@@ -886,7 +886,8 @@ describe('call selectEmailServices with mocked safe-regex, regex-only match and 
   });
 });
 
-if (false) {
+/*
+if (false && config.redis.email.enabled) {
   describe('selectEmailServices with real redis:', function() {
     const emailAddress = 'foo@example.com';
 
@@ -947,3 +948,4 @@ function redisRevert() {
     cwd: path.resolve(__dirname, '../../..'),
   });
 }
+*/
