@@ -10,8 +10,7 @@ const AppError = require('./error');
 module.exports = (log, config) => {
   const AuthServerAPI = createBackendServiceAPI(log, config, 'auth', {
     getUserProfile: {
-      /// XXX: HARDCODE THIS FOR NOW
-      path: '/auth/v1/account/profile',
+      path: '/v1/account/profile',
       method: 'GET',
       validate: {
         headers: {
@@ -53,7 +52,7 @@ module.exports = (log, config) => {
       const jwt = await signJWT(
         claims,
         config.auth.url,
-        config.audience,
+        config.publicUrl,
         config.auth.jwtSecretKey
       );
       try {
