@@ -126,8 +126,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: ../../.circleci/install-content-server.sh
-      - run: ../../.circleci/test-content-server.sh
       - store_artifacts:
           path: ~/.pm2/logs
           destination: logs
