@@ -550,10 +550,6 @@ const BaseAuthenticationBroker = Backbone.Model.extend({
      */
     browserTransitionsAfterEmailVerification: true,
     /**
-     * Should external links be converted to text?
-     */
-    convertExternalLinksToText: false,
-    /**
      * Is the email-first flow supported?
      */
     emailFirst: false,
