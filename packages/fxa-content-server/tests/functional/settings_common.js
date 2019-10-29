@@ -9,9 +9,8 @@ const TestHelpers = require('../lib/helpers');
 const selectors = require('./lib/selectors');
 
 const config = intern._config;
-const ENTER_EMAIL_URL = config.fxaContentRoot + '?action=email';
+const ENTER_EMAIL_URL = config.fxaContentRoot;
 const SETTINGS_URL = config.fxaContentRoot + 'settings';
-const SIGNIN_URL = config.fxaContentRoot + 'signin';
 const AUTOMATED = '&automatedBrowser=true';
 
 const PASSWORD = 'passwordcxvz';
@@ -23,7 +22,6 @@ const {
   click,
   createUser,
   destroySessionForEmail,
-  fillOutSignIn,
   fillOutEmailFirstSignIn,
   openPage,
   testElementExists,
@@ -60,7 +58,8 @@ function unverifiedAccountTest(suite, page) {
 
     return (
       this.remote
-        .then(fillOutSignIn(email, PASSWORD))
+        .then(openPage(url, selectors.ENTER_EMAIL.HEADER))
+        .then(fillOutEmailFirstSignIn(email, PASSWORD))
         .then(testElementExists(selectors.CONFIRM_SIGNUP.HEADER))
 
         // Expect to get redirected to confirm since the account is unverified
@@ -143,20 +142,21 @@ function verifiedAccountTest(suite, page, pageHeader) {
   suite[
     'visit settings' +
       page +
-      ' with an unknown uid parameter redirects to signin'
+      ' with an unknown uid parameter redirects to enter email'
   ] = function() {
     return (
       this.remote
-        .then(openPage(SIGNIN_URL, selectors.SIGNIN.HEADER))
-        .then(fillOutSignIn(email, PASSWORD))
+        .then(openPage(ENTER_EMAIL_URL, selectors.ENTER_EMAIL.HEADER))
+        .then(fillOutEmailFirstSignIn(email, PASSWORD))
 
         .then(testElementExists(selectors.SETTINGS.HEADER))
 
-        // Expect to get redirected to sign in since the uid is unknown
+        // Expect to get redirected to signin password since the uid is unknown
         .then(
           openPage(
             url + '?uid=' + TestHelpers.createUID(),
-            selectors.SIGNIN.HEADER
+            // TODO - this should go to enter email rather than signin password
+            selectors.SIGNIN_PASSWORD.HEADER
           )
         )
     );
@@ -166,8 +166,8 @@ function verifiedAccountTest(suite, page, pageHeader) {
     'visit settings' + page + ' with a known uid does not redirect'
   ] = function() {
     return this.remote
-      .then(openPage(SIGNIN_URL, selectors.SIGNIN.HEADER))
-      .then(fillOutSignIn(email, PASSWORD))
+      .then(openPage(ENTER_EMAIL_URL, selectors.ENTER_EMAIL.HEADER))
+      .then(fillOutEmailFirstSignIn(email, PASSWORD))
 
       .then(testElementExists(selectors.SETTINGS.HEADER))
 

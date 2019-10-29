@@ -564,8 +564,8 @@ describe('views/settings/delete_account', function() {
             assert.isTrue(broker.afterDeleteAccount.calledWith(account));
           });
 
-          it('redirects to signup, clearing query params', function() {
-            assert.equal(view.navigate.args[0][0], 'signup');
+          it('redirects to /, clearing query params', function() {
+            assert.equal(view.navigate.args[0][0], '/');
 
             assert.ok(view.navigate.args[0][1].success);
             assert.isTrue(view.navigate.args[0][2].clearQueryParams);

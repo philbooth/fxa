@@ -35,6 +35,14 @@ module.exports = {
     ERROR: '.error',
     HEADER: '#fxa-400-header',
   },
+  '404': {
+    HEADER: '#fxa-404-header',
+    LINK_HOME: '#fxa-404-home',
+  },
+  '500': {
+    HEADER: '#fxa-500-header',
+    LINK_HOME: '#fxa-500-home',
+  },
   CHANGE_PASSWORD: {
     CANCEL_BUTTON: '#change-password .cancel',
     DETAILS: '#change-password .settings-unit-details',
@@ -48,11 +56,6 @@ module.exports = {
     PASSWORD_BALLOON,
     SUBMIT: '#change-password button[type="submit"]',
     TOOLTIP: '.tooltip',
-  },
-  WOULD_YOU_LIKE_SYNC: {
-    HEADER: '#would-you-like-to-sync',
-    SUBMIT: 'button[type=submit]',
-    DO_NOT_SYNC: '#do-not-sync-device',
   },
   CHOOSE_WHAT_TO_SYNC: {
     DO_NOT_SYNC: '#do-not-sync-device',
@@ -84,6 +87,13 @@ module.exports = {
   },
   COMPLETE_SIGNIN: {
     LINK_RESEND: '#resend',
+    VERIFICATION_LINK_DAMAGED: '#fxa-verification-link-damaged-header',
+    VERIFICATION_LINK_EXPIRED: '#fxa-verification-link-expired-header',
+    VERIFICATION_LINK_REUSED: '#fxa-verification-link-reused-header',
+  },
+  COMPLETE_SIGNUP: {
+    LINK_RESEND: '#resend',
+    RESEND_SUCCESS: '.success',
     VERIFICATION_LINK_DAMAGED: '#fxa-verification-link-damaged-header',
     VERIFICATION_LINK_EXPIRED: '#fxa-verification-link-expired-header',
     VERIFICATION_LINK_REUSED: '#fxa-verification-link-reused-header',
@@ -133,6 +143,13 @@ module.exports = {
     CLOSE: '.connect-another-device button[type="submit"]',
     HEADER: '#fxa-why-connect-another-device-header',
   },
+  COOKIES_DISABLED: {
+    HEADER: '#fxa-cookies-disabled-header',
+    RETRY: '#submit-btn',
+  },
+  COPPA: {
+    HEADER: '#fxa-cannot-create-account-header',
+  },
   DOWNLOAD_FIREFOX_THANKS: {
     HEADER: '#download-button-wrapper-desktop',
   },
@@ -140,7 +157,7 @@ module.exports = {
     ADD_BUTTON: '.email-add:not(.disabled)',
     ADDRESS_LABEL: '#emails .address',
     INPUT: '.new-email',
-    MENU_BUTTON: '#emails .settings-unit-stub button',
+    MENU_BUTTON: '.emails .settings-unit-toggle',
     NOT_VERIFIED_LABEL: '.not-verified',
     REMOVE_BUTTON:
       '.email-address .settings-button.warning-button.email-disconnect',
@@ -157,8 +174,8 @@ module.exports = {
     ERROR: '.error',
     FIREFOX_FAMILY_SERVICES: '.firefox-family-services',
     HEADER: '#fxa-enter-email-header',
-    LINK_SUGGEST_SYNC: '#suggest-sync a',
     LINK_SUGGEST_EMAIL_DOMAIN_CORRECTION: '#email-suggestion',
+    LINK_SUGGEST_SYNC: '#suggest-sync a',
     SUB_HEADER: '#fxa-enter-email-header .service',
     SUBMIT: 'button[type="submit"]',
     SUGGEST_EMAIL_DOMAIN_CORRECTION: '.tooltip-suggest',
@@ -180,6 +197,10 @@ module.exports = {
     CHECKBOX_DISPLAY_NAME: 'input[name="profile:display_name"]',
     HEADER: '#fxa-permissions-header',
     SUBMIT: '#accept',
+  },
+  PRIVACY_POLICY: {
+    HEADER: '#fxa-pp-header',
+    LINK_BACK: '#fxa-pp-back',
   },
   PAIRING: {
     AUTH_SUBMIT: '#auth-approve-btn',
@@ -204,6 +225,10 @@ module.exports = {
     UNLOCK_BUTTON: '.account-recovery .unlock-button',
     UNLOCK_REFRESH_BUTTON: '.account-recovery .refresh-verification-state',
     UNLOCK_SEND_VERIFY: '.account-recovery .send-verification-email',
+  },
+  REPORT_SIGNIN: {
+    HEADER: '#fxa-report-sign-in-header',
+    SUBMIT: 'button[type=submit]',
   },
   RESET_PASSWORD: {
     BACK: '.remember-password',
@@ -244,6 +269,7 @@ module.exports = {
     CAMERA_HEADER: '#avatar-camera',
     CHANGE_HEADER: '#avatar-options',
     CROPPER_HEADER: '.cropper',
+    HEADER: '#avatar-change',
     MENU_BUTTON: '#change-avatar .settings-unit-toggle',
     SUBMIT: '.modal-panel #submit-btn',
     UPLOAD_FILENAME_INPUT: '#imageLoader',
@@ -252,6 +278,7 @@ module.exports = {
     BUTTON_REFRESH: '.clients-refresh',
     BUTTON_REFRESH_LOADING: '.clients-refresh .spinner',
     CLIENT_LIST: '.client-list',
+    MENU_BUTTON: '#clients .settings-unit-toggle',
     OAUTH_CLIENT: 'li.client-oAuthApp',
     REFRESHING: '.clients-refresh.disabled',
   },
@@ -270,20 +297,6 @@ module.exports = {
     INPUT_DISPLAY_NAME: '#display-name input[type=text]',
     MENU_BUTTON: '#display-name button.settings-unit-toggle',
     SUBMIT: '#display-name button[type=submit]',
-  },
-  SIGNIN: {
-    EMAIL: 'input[type=email]',
-    EMAIL_NOT_EDITABLE: '.prefillEmail',
-    ERROR: '.error',
-    HEADER: '#fxa-signin-header',
-    LINK_USE_DIFFERENT: '.use-different',
-    MIGRATION_NUDGE: '#suggest-sync',
-    PASSWORD: 'input[type=password]',
-    RESET_PASSWORD: 'a[href^="/reset_password"]',
-    SUB_HEADER: '#fxa-signin-header .service',
-    SUBMIT: 'button[type=submit]',
-    SUBMIT_USE_SIGNED_IN: '.use-logged-in',
-    TOOLTIP: '.tooltip',
   },
   SIGNIN_BOUNCED: {
     BACK: '#back',
@@ -309,6 +322,7 @@ module.exports = {
     SUCCESS: '.success',
     SUBMIT: 'button[type="submit"]',
     SUBMIT_USE_SIGNED_IN: '.use-logged-in',
+    TOOLTIP: 'input[type=password] ~ .tooltip',
   },
   SIGNIN_RECOVERY_CODE: {
     DONE_BUTTON: '.two-step-authentication-done',
@@ -318,6 +332,9 @@ module.exports = {
     MODAL: '#recovery-codes',
     SECOND_CODE: '.recovery-code:nth-child(2)',
     SUBMIT: 'button[type="submit"]',
+  },
+  SIGNIN_REPORTED: {
+    HEADER: '#fxa-sign-in-reported-header',
   },
   SIGNIN_TOKEN_CODE: {
     EMAIL_FIELD: '.verification-email-message',
@@ -331,30 +348,13 @@ module.exports = {
   },
   SIGNIN_UNBLOCK: {
     EMAIL_FIELD: '.verification-email-message',
-    HEADER: '#fxa-signin-unblock-header',
-    SUBMIT: 'button[type="submit"]',
-    VERIFICATION: '.verification-email-message',
-  },
-  SIGNUP: {
-    AGE: '#age',
-    EMAIL: 'input[type=email]',
     ERROR: '.error',
-    FIREFOX_FAMILY_SERVICES: '.firefox-family-services',
-    HEADER: '#fxa-signup-header',
-    LINK_SIGN_IN: 'a#have-account',
-    LINK_SUGGEST_EMAIL_DOMAIN_CORRECTION: '#email-suggestion',
-    LINK_SUGGEST_SIGN_IN: '.error a[href="/signin"]',
-    LINK_SUGGEST_SYNC: '#suggest-sync a',
-    MARKETING_EMAIL_OPTIN: 'input.marketing-email-optin',
-    MIGRATING_USER: '#suggest-sync',
-    PASSWORD: '#password',
-    SUB_HEADER: '#fxa-signup-header .service',
+    HEADER: '#fxa-signin-unblock-header',
+    LINK_RESEND: '#resend',
     SUBMIT: 'button[type="submit"]',
-    SUGGEST_EMAIL_DOMAIN_CORRECTION: '.tooltip-suggest',
-    SUGGEST_SIGN_IN: '.error',
-    SUGGEST_SYNC: '#suggest-sync',
-    TOOLTIP_BOUNCED_EMAIL: '.tooltip',
-    VPASSWORD: '#vpassword',
+    TOOLTIP: '#unblock_code ~ .tooltip',
+    UNBLOCK_CODE: '#unblock_code',
+    VERIFICATION: '.verification-email-message',
   },
   SIGNUP_COMPLETE: {
     CONTINUE_BUTTON: '.btn-continue',
@@ -376,6 +376,7 @@ module.exports = {
     SHOW_PASSWORD: '#password ~ .show-password-label',
     SHOW_VPASSWORD: '#vpassword ~ .show-password-label',
     SUBMIT: 'button[type="submit"]',
+    TOOLTIP_AGE_REQUIRED: '#age ~ .tooltip',
     TOS: '#fxa-tos',
     VPASSWORD: '#vpassword',
   },
@@ -406,6 +407,10 @@ module.exports = {
     CLOSE: '.connect-another-device button[type="submit"]',
     HEADER: '#fxa-why-connect-another-device-header',
   },
+  TOS: {
+    HEADER: '#fxa-tos-header',
+    LINK_BACK: '#fxa-tos-back',
+  },
   TOTP: {
     CANCEL_BUTTON: '.totp-cancel',
     CONFIRM_CODE_BUTTON: '.totp-confirm-code',
@@ -435,6 +440,11 @@ module.exports = {
   UPDATE_FIREFOX: {
     BUTTON_DOWNLOAD_FIREFOX: '.primary-button',
     HEADER: '#fxa-update-firefox-header',
+  },
+  WOULD_YOU_LIKE_SYNC: {
+    HEADER: '#would-you-like-to-sync',
+    SUBMIT: 'button[type=submit]',
+    DO_NOT_SYNC: '#do-not-sync-device',
   },
 };
 /*eslint-enable max-len*/

@@ -161,8 +161,15 @@ var View = FormView.extend({
         // user deleted an account
         this.logViewEvent('deleted');
 
+        // email/uid are set in signin-mixin when a user signs in.
+        // The index view checks these values to determine whether
+        // to redirect a user to signup/signin. Clear them to avoid
+        // sending the user directly to the signup page.
+        this.relier.unset('email');
+        this.relier.unset('uid');
+
         this.navigate(
-          'signup',
+          '/',
           {
             success: t('Account deleted successfully'),
           },

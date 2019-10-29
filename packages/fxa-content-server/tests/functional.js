@@ -22,7 +22,6 @@ module.exports = [
   'tests/functional/cookies_disabled.js',
   'tests/functional/delete_account.js',
   'tests/functional/email_opt_in.js',
-  'tests/functional/email_service.js',
   'tests/functional/force_auth.js',
   'tests/functional/force_auth_blocked.js',
   'tests/functional/fx_desktop_handshake.js',

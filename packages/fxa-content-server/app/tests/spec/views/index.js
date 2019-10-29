@@ -95,6 +95,19 @@ describe('views/index', () => {
       });
     });
 
+    describe('success message from previous screen', () => {
+      it('is displayed', () => {
+        model.set('success', 'heyo!');
+
+        return view
+          .render()
+          .then(() => view.afterVisible())
+          .then(() => {
+            assert.equal(view.$('.success').text(), 'heyo!');
+          });
+      });
+    });
+
     describe('user is too young', () => {
       it('redirects to `/cannot_create_account`', () => {
         windowMock.document.cookie = 'tooyoung; 1';
@@ -315,6 +328,7 @@ describe('views/index', () => {
       sinon.stub(view, 'navigate').callsFake(() => {});
       sinon.stub(broker, 'beforeSignIn').callsFake(() => Promise.resolve());
       sinon.stub(view, 'afterRender').callsFake(() => Promise.resolve());
+      model.set('redirectTo', 'foo');
 
       return view.render();
     });
