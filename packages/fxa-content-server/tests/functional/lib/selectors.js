@@ -377,6 +377,7 @@ module.exports = {
     SHOW_VPASSWORD: '#vpassword ~ .show-password-label',
     SUBMIT: 'button[type="submit"]',
     TOS: '#fxa-tos',
+    TOOLTIP: '.tooltip',
     VPASSWORD: '#vpassword',
   },
   SMS_LEARN_MORE: {

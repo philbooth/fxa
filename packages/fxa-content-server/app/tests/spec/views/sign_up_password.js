@@ -144,7 +144,7 @@ describe('views/sign_up_password', () => {
     beforeEach(() => {
       sinon.stub(view, 'signUp').callsFake(() => Promise.resolve());
       sinon.stub(view, 'tooYoung');
-      sinon.spy(view, 'displayError');
+      sinon.spy(view, 'showValidationError');
     });
 
     describe('password and vpassword do not match', () => {
@@ -157,10 +157,13 @@ describe('views/sign_up_password', () => {
           assert.fail,
           () => {
             assert.isFalse(view.signUp.called);
-            assert.isTrue(view.displayError.calledOnce);
-            const displayedError = view.displayError.args[0][0];
+            assert.isTrue(view.showValidationError.calledOnce);
+            const displayedError = view.showValidationError.args[0][1];
             assert.isTrue(
-              AuthErrors.is(displayedError, 'PASSWORDS_DO_NOT_MATCH')
+              AuthErrors.is(
+                displayedError,
+                AuthErrors.toError('PASSWORDS_DO_NOT_MATCH')
+              )
             );
           }
         );
@@ -176,7 +179,7 @@ describe('views/sign_up_password', () => {
         return Promise.resolve(view.validateAndSubmit()).then(() => {
           assert.isTrue(view.tooYoung.calledOnce);
           assert.isFalse(view.signUp.called);
-          assert.isFalse(view.displayError.called);
+          assert.isFalse(view.showValidationError.called);
         });
       });
     });
@@ -198,7 +201,7 @@ describe('views/sign_up_password', () => {
             'take-action-for-the-internet',
           ]);
 
-          assert.isFalse(view.displayError.called);
+          assert.isFalse(view.showValidationError.called);
         });
       });
     });
@@ -213,6 +216,66 @@ describe('views/sign_up_password', () => {
 
         return Promise.resolve(view.validateAndSubmit()).then(() => {
           assert.isFalse(account.has('newsletters'));
+        });
+      });
+    });
+  });
+
+  describe('_checkPasswordsMatch', () => {
+    beforeEach(() => {
+      sinon.stub(view, 'signUp').callsFake(() => Promise.resolve());
+      sinon.stub(view, 'tooYoung');
+      sinon.spy(view, 'showValidationError');
+    });
+
+    describe('password and vpassword do not match', () => {
+      it('displays an error', () => {
+        view.$(Selectors.PASSWORD).val('password123123');
+        view.$(Selectors.VPASSWORD).val('different_password');
+        view.$(Selectors.AGE).val('21');
+
+        return Promise.resolve(view._checkPasswordsMatch()).then(() => {
+          assert.isTrue(view.showValidationError.calledOnce);
+          const displayedError = view.showValidationError.args[0][1];
+          assert.isTrue(
+            AuthErrors.is(
+              displayedError,
+              AuthErrors.toError('PASSWORDS_DO_NOT_MATCH')
+            )
+          );
+        });
+      });
+    });
+
+    describe('password and vpassword do match', () => {
+      it('displays an error', () => {
+        view.$(Selectors.PASSWORD).val('password123123');
+        view.$(Selectors.VPASSWORD).val('password123123');
+        view.$(Selectors.AGE).val('21');
+
+        return Promise.resolve(view._checkPasswordsMatch()).then(() => {
+          assert.isFalse(view.showValidationError.called);
+        });
+      });
+    });
+  });
+
+  describe('inline confirm password validation', () => {
+    beforeEach(() => {
+      sinon.stub(view, 'signUp').callsFake(() => Promise.resolve());
+      sinon.spy(view, 'showValidationError');
+      sinon.spy(view, 'checkPasswordsMatchDebounce');
+    });
+
+    describe('check password and vpassword', () => {
+      it('calls debounced password check', () => {
+        view.$(Selectors.PASSWORD).val('password123123');
+        view.$(Selectors.VPASSWORD).val('different_password');
+        view.$(Selectors.AGE).val('21');
+
+        return Promise.resolve(view.$(Selectors.VPASSWORD).keyup()).then(() => {
+          assert.isFalse(view.signUp.called);
+          assert.isTrue(view.checkPasswordsMatchDebounce.calledOnce);
         });
       });
     });
