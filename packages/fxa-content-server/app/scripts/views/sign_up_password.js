@@ -46,7 +46,8 @@ const SignUpPasswordView = FormView.extend({
   },
 
   beforeRender() {
-    if (!this.getAccount()) {
+    const account = this.getAccount();
+    if (!account || !account.get('email')) {
       this.navigate('/');
     }
     const error = this.model.get('error');

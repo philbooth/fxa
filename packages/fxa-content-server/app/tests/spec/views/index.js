@@ -9,6 +9,7 @@ import AuthErrors from 'lib/auth-errors';
 import { ENTER_EMAIL } from '../../../../tests/functional/lib/selectors';
 import FormPrefill from 'models/form-prefill';
 import IndexView from 'views/index';
+import { Model } from 'backbone';
 import Notifier from 'lib/channels/notifier';
 import Relier from 'models/reliers/relier';
 import sinon from 'sinon';
@@ -22,6 +23,7 @@ const EMAIL = 'testuser@testuser.com';
 describe('views/index', () => {
   let broker;
   let formPrefill;
+  let model;
   let notifier;
   let relier;
   let user;
@@ -31,6 +33,7 @@ describe('views/index', () => {
   beforeEach(() => {
     broker = new AuthBroker();
     formPrefill = new FormPrefill();
+    model = new Model({});
     notifier = new Notifier();
     relier = new Relier();
     windowMock = new WindowMock();
@@ -40,6 +43,7 @@ describe('views/index', () => {
     view = new IndexView({
       broker,
       formPrefill,
+      model,
       notifier,
       relier,
       user,
@@ -329,7 +333,11 @@ describe('views/index', () => {
           const brokerAccount = broker.beforeSignIn.args[0][0];
           assert.equal(brokerAccount.get('email'), EMAIL);
 
-          assert.isTrue(view.navigate.calledOnceWith('signin'));
+          assert.isTrue(
+            view.navigate.calledOnceWith('signin', {
+              account: storedAccount,
+            })
+          );
           const { account } = view.navigate.args[0][1];
           assert.strictEqual(account, storedAccount);
           // Ensure the email is added to the stored account.
@@ -344,8 +352,7 @@ describe('views/index', () => {
           .stub(user, 'checkAccountEmailExists')
           .callsFake(() => Promise.resolve(false));
         return view.checkEmail(EMAIL).then(() => {
-          assert.isTrue(view.navigate.calledOnce);
-          assert.isTrue(view.navigate.calledWith('signup'));
+          assert.isTrue(view.navigate.calledOnceWith('signup'));
           const { account } = view.navigate.args[0][1];
           assert.equal(account.get('email'), EMAIL);
 
