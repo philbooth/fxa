@@ -37,7 +37,8 @@ const SignInPasswordView = FormView.extend({
   },
 
   beforeRender() {
-    if (!this.getAccount()) {
+    const account = this.getAccount();
+    if (!account || !account.get('email')) {
       this.navigate('/');
     }
   },
